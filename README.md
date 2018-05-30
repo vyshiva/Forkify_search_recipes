@@ -15,4 +15,8 @@ npm -v
 
   git clone https://github.com/vyshiva/Forkify_search_recipes.git
 
-* launch command npm install in terminal. This command will install all packages from package.json and their dependencies
+* launch command 
+
+    npm install 
+
+in terminal. This command will install all packages from package.json and their dependencies

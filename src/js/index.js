@@ -15,7 +15,9 @@ import { elements, renderLoader, clearLoader } from './views/base';
 * - Liked recipes
 */
 const state = {};
+//TESTING
 window.state = state;
+
 /** 
  * SEARCH CONTROLLER 
  */
@@ -64,7 +66,6 @@ elements.searchResPages.addEventListener('click', e => {
 /** 
  * RECIPE CONTROLLER 
  */
-
 const controlRecipe = async () => {
   // Get ID from url
   const id = window.location.hash.replace('#', '');
@@ -118,6 +119,9 @@ const controlList = () => {
     const item = state.list.addItem(el.count, el.unit, el.ingredient);
     listView.renderItem(item);
   });
+
+  // Visivility button clear
+  listView.toggleButtonClear(state.list.getNumList());
 };
 
 // Handle delete and update list item events
@@ -132,6 +136,9 @@ elements.shopping.addEventListener('click', e => {
     // Delete from UI
     listView.deleteItem(id); 
   
+    // Visivility button clear
+    listView.toggleButtonClear(state.list.getNumList());
+
     // Handle the count update
   } else if (e.target.matches('.shopping__count-value, .shopping__count-value *')) {
     const val = parseFloat(e.target.value, 10);
@@ -139,10 +146,23 @@ elements.shopping.addEventListener('click', e => {
   }
 });
 
+// Handle delete all items from shopping list
+
+elements.buttonClear.addEventListener('click', e => {
+  // Delete from state
+  state.list.clear();
+  
+  // Delete from UI
+  listView.deleteAll();
+
+  // Visivility button clear
+  listView.toggleButtonClear(0);
+
+});
+
 /**
 * LIKE CONTROLLER
 */
-
 const controlLike = () => {
   if (!state.likes) state.likes = new Likes();
   const currentID = state.recipe.id;
@@ -200,7 +220,7 @@ elements.recipe.addEventListener('click', e => {
     state.recipe.updateServings('dec');
     recipeView.updateServingsIngredients(state.recipe);
     }
-  } else if (e.target.matches('.btn-inccrease, .btn-increase *')){
+  } else if (e.target.matches('.btn-increase, .btn-increase *')){
     // Increase button is clicked
     state.recipe.updateServings('inc');
     recipeView.updateServingsIngredients(state.recipe);
@@ -212,5 +232,3 @@ elements.recipe.addEventListener('click', e => {
     controlLike();
   }
 });
-
-window.l = new List();

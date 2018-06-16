@@ -22,3 +22,11 @@ export const deleteItem = id => {
   const item = document.querySelector(`[data-itemid="${id}"`);
   if (item) item.parentElement.removeChild(item);
 }
+
+export const toggleButtonClear = numList => {
+  elements.buttonClear.style.visibility = numList > 0 ? 'visible' : 'hidden';
+}
+
+export const deleteAll = () => {
+  elements.shopping.innerHTML = '';
+}
